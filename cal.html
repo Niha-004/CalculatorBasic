@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./cal.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="calculator">
+        <!-- Prevent form submission -->
+        <form onsubmit="return false;">
+            <div class="display">
+                <!-- Changed input type to 'text' and added 'id' for better reference in JS -->
+                <input type="text" id="display" onkeydown="checkEnter(event)">
+            </div>
+            <div>
+                <input id="operator" type="button" value="AC" onclick="clearDisplay()">
+                <input id="operator" type="button" value="DEL" onclick="deleteLastChar()">
+                <input id="operator" type="button" value="%" onclick="appendToDisplay('%')">
+                <input id="operator" type="button" value="/" onclick="appendToDisplay('/')">
+            </div>
+            <div>
+                <input type="button" value="7" onclick="appendToDisplay('7')">
+                <input type="button" value="8" onclick="appendToDisplay('8')">
+                <input type="button" value="9" onclick="appendToDisplay('9')">
+                <input id="operator" type="button" value="*" onclick="appendToDisplay('*')">
+            </div>
+            <div>
+                <input type="button" value="4" onclick="appendToDisplay('4')">
+                <input type="button" value="5" onclick="appendToDisplay('5')">
+                <input type="button" value="6" onclick="appendToDisplay('6')">
+                <input id="operator" type="button" value="-" onclick="appendToDisplay('-')">
+            </div>
+            <div>
+                <input type="button" value="1" onclick="appendToDisplay('1')">
+                <input type="button" value="2" onclick="appendToDisplay('2')">
+                <input type="button" value="3" onclick="appendToDisplay('3')">
+                <input id="operator" type="button" value="+" onclick="appendToDisplay('+')">
+            </div>
+            <div>
+                <input id="operator" type="button" value="." onclick="appendToDisplay('.')">
+                <input type="button" value="0" onclick="appendToDisplay('0')">
+                <input type="button" value="=" id="equal" onclick="calculateResult()">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Function to handle key press (Enter)
+    function checkEnter(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();  // Prevent form submission
+            calculateResult();  // Trigger calculation
+        }
+    }
+
+    // Function to append characters to the display
+    function appendToDisplay(value) {
+        document.getElementById('display').value += value;
+    }
+
+    // Function to clear the display
+    function clearDisplay() {
+        document.getElementById('display').value = '';
+    }
+
+    // Function to delete the last character
+    function deleteLastChar() {
+        const display = document.getElementById('display');
+        display.value = display.value.slice(0, -1);
+    }
+
+    // Function to evaluate the expression and display the result
+    function calculateResult() {
+        const display = document.getElementById('display');
+        try {
+            display.value = eval(display.value);  // Calculate and display the result
+        } catch (error) {
+            display.value = 'Error';  // Handle any invalid input
+        }
+    }
+</script>
+
+</body>
+</html>
